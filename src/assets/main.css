@@ -1,0 +1,33 @@
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--color-background);
+}
+
+/* Color Variables */
+:root {
+  --color-background: #343433;
+}
+
+/* Media query for Tablets */
+@media (min-width: 768px) {
+  .app {
+    color: red;
+    font-size: large;
+  }
+}
+
+/* Media query for Desktops */
+@media (min-width: 1024px) {
+  .app {
+    color: blue;
+    font-size: xx-large;
+  }
+}
+
+.app {
+  width: 100%;
+  height: 100vh;
+}
