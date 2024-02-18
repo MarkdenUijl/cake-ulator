@@ -1,4 +1,6 @@
 <script setup>
+import { computed, ref } from 'vue';
+
     const props = defineProps({
         image: {
             type: String,
@@ -13,12 +15,24 @@
             required: false
         }
     })
+
+    const screenWidth = ref(window.innerWidth)
+    
+    window.addEventListener('resize', () => {
+        screenWidth.value = window.innerWidth
+    })
+
+    const shouldDisplayText = computed(() => {
+        return !props.image || screenWidth.value >= 768
+    })
+
 </script>
 
 <template>
-    <button id="twoStateButton" :class="props.isSelected ? 'selected' : null">
+    <button id="twoStateButton" :class="{ 'selected' : props.isSelected }">
         <icon :name="props.image" width="30" height="30" :fill="props.isSelected ? 'var(--color-highlight)' : 'var(--color-unselected)'"/>
-        {{ props.text }}
+        
+        <span v-if="shouldDisplayText">{{ props.text }}</span>
     </button>
 </template>
 
@@ -34,7 +48,7 @@
         align-items: center;
         justify-content: center;
         gap: 0px;
-        font-size: 0px;
+        font-size: 15px;
         flex-grow: 1;
     }
 
@@ -66,7 +80,6 @@
     @media (min-width: 768px) {
         #twoStateButton {
             gap: 10px;
-            font-size: 20px;
         }
     }
 

@@ -1,33 +1,44 @@
 <script setup>
     import { ref } from 'vue'
 
-    const volumeName = ref('');
-
     const conversionButtons = [
         { id: 'volume', text: 'Volume', image: 'icon-volume' },
         { id: 'weight', text: 'Weight', image: 'icon-weight' },
         { id: 'temperature', text: 'Temperature', image: 'icon-thermostat' }
     ];
+
+    const volumeButtons = [
+        { id: 'cups', text: 'cups' },
+        { id: 'teaspoons', text: 'tsp' },
+        { id: 'tablespoons', text: 'tbsp' },
+        { id: 'millilitres', text: 'ml' }
+    ];
+
+    const selectedConverter = ref(null)
+    const selectedVolumeInput = ref(null)
+    const selectedVolumeOutput = ref(null)
+
+    const volumeName = ref('')
 </script>
 
 <template>
     <div id="selector-container">
-        <list-single-select :buttons="conversionButtons" />
+        <list-single-select :buttons="conversionButtons" v-model:selectedButton="selectedConverter" />
         
-        <!-- <div id="selected-content" :class="selectedButton === ('volume' || 'weight' || 'temperature') ? 'visible' : null">
-            <div id="volume-content" :class="{ 'visible': selectedButton === 'volume' }">
-                <input v-model="volumeName" type="text" placeholder="Item Name" />
+        <div id="conversion-volume" class="conversion-container" :class="{ 'visible' : selectedConverter === 'volume' }">
+            <input v-model="volumeName" type="text" placeholder="Item name"/>
 
-            </div>
+            <input v-model="volumeAmount" type="number" placeholder="Amount"/>
 
-            <div id="weight-content" :class="{ 'visible': selectedButton === 'weight' }">
-                
-            </div>
+            <div class="button-container">
+                <list-single-select :buttons="volumeButtons" v-model:selectedButton="selectedVolumeInput" />
 
-            <div id="temperature-content" :class="{ 'visible': selectedButton === 'temperature' }">
-                
+                <span>></span>
+
+                <list-single-select :buttons="volumeButtons" v-model:selectedButton="selectedVolumeOutput" />
             </div>
-        </div> -->
+            
+        </div>
     </div>
 </template>
 
@@ -51,32 +62,23 @@
         align-items: flex-start;
     }
 
-    #selected-content.visible {
+    .conversion-container {
+        display: none;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+        background: none;
+    }
+
+    .conversion-container.visible {
         display: flex;
     }
 
-    #volume-content {
-        display: none;
+    .button-container {
+        background: none;
+        width: 100%;
     }
 
-    #volume-content.visible {
-        display: block;
-    }
-
-    #weight-content {
-        display: none;
-    }
-
-    #weight-content.visible {
-        display: block;
-    }
-
-    #temperature-content {
-        display: none;
-    }
-
-    #temperature-content.visible {
-        display: block;
-    }
 </style>
   
