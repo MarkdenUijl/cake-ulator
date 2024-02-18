@@ -1,13 +1,12 @@
 <script setup>
+  import "./assets/main.css"
 </script>
 
 <template>
-  
+  <div class="app">
+      <selector-bar></selector-bar>
+  </div>
 </template>
 
 <style scoped>
-main {
-  background-color: black
-}
-
 </style>
