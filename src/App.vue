@@ -1,12 +1,10 @@
 <script setup>
   import "./assets/main.css"
-  import "./components/navbar.vue"
 </script>
 
 <template>
   <div class="app">
-    
-      
+      <selector-bar></selector-bar>
   </div>
 </template>
 
