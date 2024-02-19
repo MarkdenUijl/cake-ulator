@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, defineProps, defineEmits } from 'vue'
+  import { ref } from 'vue'
 
   const props = defineProps({
     buttons: {
@@ -38,7 +38,8 @@
     justify-content: space-between;
     align-items: center;
     gap: 10px;
-    min-width: 100%;
+    width: 100%;
     background: none;
+    flex-shrink: 1;
   }
 </style>
