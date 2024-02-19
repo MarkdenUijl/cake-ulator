@@ -9,10 +9,6 @@ import { computed, ref } from 'vue';
         text: {
             type: String,
             required: false
-        },
-        isSelected: {
-            type: Boolean,
-            required: false
         }
     })
 
@@ -26,10 +22,12 @@ import { computed, ref } from 'vue';
         return !props.image || screenWidth.value >= 768
     })
 
+    const emit = defineEmits(['clickButton'])
+
 </script>
 
 <template>
-    <button id="twoStateButton" :class="{ 'selected' : props.isSelected }">
+    <button id="singleStateButton" @click="$emit('clickButton')">
         <icon v-if="props.image != null" :name="props.image" width="30" height="30" :fill="props.isSelected ? 'var(--color-highlight)' : 'var(--color-unselected)'"/>
         
         <span v-if="shouldDisplayText">{{ props.text }}</span>
@@ -37,7 +35,7 @@ import { computed, ref } from 'vue';
 </template>
 
 <style>
-    #twoStateButton {
+    #singleStateButton {
         background-color: var(--color-item);
         border: 2px solid var(--color-unselected);
         border-radius: 15px;
@@ -51,35 +49,35 @@ import { computed, ref } from 'vue';
         font-size: 15px;
         font-weight: bold;
         flex-grow: 1;
+        min-width: 200px;
+        justify-self: center;
+        align-self: center;
     }
 
-    #twoStateButton:hover {
+    #singleStateButton:hover {
         border: 2px solid var(--color-highlight);
         color: var(--color-highlight);
         box-shadow: 0px 0px 5px var(--color-highlight);
         text-shadow: 0px 0px 5px var(--color-highlight);
     }
 
-    #twoStateButton:hover svg {
+    #singleStateButton:hover svg {
         fill: var(--color-highlight);
         filter: drop-shadow(0px 0px 5px var(--color-highlight));
     }
 
-    #twoStateButton.selected {
+    #singleStateButton:active {
+        border: 2px solid var(--color-highlight);
         background-color: var(--color-highlight);
         color: var(--color-background);
-        border-color: var(--color-highlight);
-        box-shadow: 0px 0px 5px var(--color-highlight);
-    }
-
-    #twoStateButton.selected svg {
-        fill: var(--color-background);
+        box-shadow: 0px 0px 10px var(--color-highlight);
+        text-shadow: 0px 0px 10px var(--color-highlight);
     }
 
 
     /* MEDIA QUERIES */
     @media (min-width: 768px) {
-        #twoStateButton {
+        #singleStateButton {
             gap: 10px;
         }
     }
