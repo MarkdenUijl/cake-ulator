@@ -116,7 +116,7 @@
 
 <template>
     <div id="selector-container">
-        <list-single-select :buttons="conversionButtons" v-model:selectedButton="selectedConverter" @buttonClicked="toggleConverter" />
+        <list-single-select :buttons="conversionButtons" v-model:selectedButton="selectedConverter" :toggle="true" @buttonClicked="toggleConverter" />
     </div>
 
     <div id="outer-container">
@@ -142,7 +142,7 @@
 
             <div class="divider"></div>
 
-            <single-state-button @clickButton="addVolumeConversion" text="+" />
+            <single-state-button @clickButton="addVolumeConversion" :image="'icon-add'" />
         </div>
 
         <div id="conversion-weight" class="conversion-container" :class="{ 'collapsed' : selectedConverter !== 'weight' }">
@@ -167,7 +167,7 @@
 
             <div class="divider"></div>
 
-            <single-state-button @clickButton="addWeightConversion" text="+" />
+            <single-state-button @clickButton="addWeightConversion" :image="'icon-add'" />
         </div>
 
         <div id="conversion-temperature" class="conversion-container" :class="{ 'collapsed' : selectedConverter !== 'temperature' }">
@@ -190,7 +190,7 @@
 
             <div class="divider"></div>
 
-            <single-state-button @clickButton="addTemperatureConversion" text="+" />
+            <single-state-button @clickButton="addTemperatureConversion" :image="'icon-add'" />
         </div>
     </div>
 </template>
@@ -228,6 +228,7 @@
         align-items: flex-start;
         gap: 10px;
         width: 100%;
+        box-shadow: 0px 3px 10px var(--color-background);
 
         background-color: var(--color-item);
         border-radius: 15px;

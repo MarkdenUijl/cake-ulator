@@ -5,7 +5,7 @@
 <template>
   <div class="app">
       <selector-bar></selector-bar>
-      <recipe-item></recipe-item>
+      <recipe></recipe>
   </div>
 </template>
 

@@ -29,8 +29,6 @@ import { computed, ref } from 'vue';
 <template>
     <button id="singleStateButton" @click="$emit('clickButton')">
         <icon v-if="props.image != null" :name="props.image" width="30" height="30" :fill="props.isSelected ? 'var(--color-highlight)' : 'var(--color-unselected)'"/>
-        
-        <span v-if="shouldDisplayText">{{ props.text }}</span>
     </button>
 </template>
 
@@ -49,7 +47,8 @@ import { computed, ref } from 'vue';
         font-size: 15px;
         font-weight: bold;
         flex-grow: 1;
-        min-width: 200px;
+        width: 50%;
+        min-width: 10px;
         justify-self: center;
         align-self: center;
     }
@@ -72,6 +71,11 @@ import { computed, ref } from 'vue';
         color: var(--color-background);
         box-shadow: 0px 0px 10px var(--color-highlight);
         text-shadow: 0px 0px 10px var(--color-highlight);
+    }
+
+    #singleStateButton:active svg {
+        fill: var(--color-background);
+        filter: drop-shadow(0px 0px 10px var(--color-highlight));
     }
 
 
