@@ -1,6 +1,4 @@
 <script setup>
-  import { ref } from 'vue'
-
   const props = defineProps({
     buttons: {
       type: Array,
@@ -12,11 +10,21 @@
     }
   })
 
-  const emit = defineEmits(['update:selectedButton'])
+  // const emit = defineEmits(['update:selectedButton'])
+
+  // const handleButtonSelect = (buttonId) => {
+  //     emit('update:selectedButton', buttonId)
+  // }
+
+  const emit = defineEmits(['buttonClicked']);
 
   const handleButtonSelect = (buttonId) => {
-      emit('update:selectedButton', buttonId)
-  }
+    if (props.selectedButton === buttonId) {
+      emit('buttonClicked', null);
+    } else {
+      emit('buttonClicked', buttonId);
+    }
+  };
 </script>
 
 <template>

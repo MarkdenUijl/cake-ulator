@@ -4,6 +4,14 @@
     import { convertWeight } from '@/utils/convertWeight.js'
     import { convertTemperature } from '@/utils/convertTemperature.js'
 
+    const toggleConverter = (buttonId) => {
+        if (selectedConverter.value === buttonId) {
+            selectedConverter.value = null;
+        } else {
+            selectedConverter.value = buttonId;
+        }
+    };
+
     function resetValues() {
         selectedConverter.value = null;
         selectedVolumeInput.value = null;
@@ -99,8 +107,7 @@
 
     const addTemperatureConversion = () => {
         if (temperatureOutputAmount.value != null && temperatureInputAmount.value != 0 && temperatureInputAmount.value != null) {
-            console.log(`${temperatureInputAmount.value} ${selectedTemperatureInput.value}`)
-            console.log(`${temperatureOutputAmount.value} ${selectedTemperatureOutput.value}`)
+            console.log(`Bake at ${temperatureOutputAmount.value}º ${selectedTemperatureOutput.value}`)
         }
 
         resetValues();
@@ -109,7 +116,7 @@
 
 <template>
     <div id="selector-container">
-        <list-single-select :buttons="conversionButtons" v-model:selectedButton="selectedConverter" />
+        <list-single-select :buttons="conversionButtons" v-model:selectedButton="selectedConverter" @buttonClicked="toggleConverter" />
     </div>
 
     <div id="outer-container">
@@ -210,6 +217,7 @@
 
     .conversion-container.collapsed {
         transform: scaleY(0);
+        opacity: 0;
     }
 
     .conversion-container {
@@ -226,7 +234,7 @@
         padding: 10px;
 
         overflow:hidden;
-        transition:transform 0.5s ease-in-out;
+        transition:transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
         height:auto;
         transform:scaleY(1);
         transform-origin:top;
