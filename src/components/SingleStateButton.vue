@@ -9,7 +9,11 @@ import { computed, ref } from 'vue';
         text: {
             type: String,
             required: false
-        }
+        },
+        inverted: {
+            type: Boolean,
+            required: false
+        },
     })
 
     const screenWidth = ref(window.innerWidth)
@@ -18,22 +22,23 @@ import { computed, ref } from 'vue';
         screenWidth.value = window.innerWidth
     })
 
-    const shouldDisplayText = computed(() => {
-        return !props.image || screenWidth.value >= 768
-    })
-
     const emit = defineEmits(['clickButton'])
 
 </script>
 
 <template>
-    <button id="singleStateButton" @click="$emit('clickButton')">
-        <icon v-if="props.image != null" :name="props.image" width="30" height="30" :fill="props.isSelected ? 'var(--color-highlight)' : 'var(--color-unselected)'"/>
+    <button :class="['singleStateButton']" @click="$emit('clickButton')">
+        <icon v-if="props.image != null" 
+            :name="props.image" 
+            width="30" 
+            height="30" 
+            :fill="props.isSelected ? 'var(--color-highlight)' : 'var(--color-unselected)'"
+        />
     </button>
 </template>
 
 <style>
-    #singleStateButton {
+    .singleStateButton {
         background-color: var(--color-item);
         border: 2px solid var(--color-unselected);
         border-radius: 15px;
@@ -49,23 +54,28 @@ import { computed, ref } from 'vue';
         flex-grow: 1;
         width: 50%;
         min-width: 10px;
-        justify-self: center;
         align-self: center;
     }
 
-    #singleStateButton:hover {
+    .inverted {
+        background-color: var(--color-highlight);
+        color: var(--color-item);
+        border: 2px solid var(--color-item);
+    }
+
+    .singleStateButton:hover {
         border: 2px solid var(--color-highlight);
         color: var(--color-highlight);
         box-shadow: 0px 0px 5px var(--color-highlight);
         text-shadow: 0px 0px 5px var(--color-highlight);
     }
 
-    #singleStateButton:hover svg {
+    .singleStateButton:hover svg {
         fill: var(--color-highlight);
         filter: drop-shadow(0px 0px 5px var(--color-highlight));
     }
 
-    #singleStateButton:active {
+    .singleStateButton:active {
         border: 2px solid var(--color-highlight);
         background-color: var(--color-highlight);
         color: var(--color-background);
@@ -73,7 +83,7 @@ import { computed, ref } from 'vue';
         text-shadow: 0px 0px 10px var(--color-highlight);
     }
 
-    #singleStateButton:active svg {
+    .singleStateButton:active svg {
         fill: var(--color-background);
         filter: drop-shadow(0px 0px 10px var(--color-highlight));
     }
@@ -81,7 +91,7 @@ import { computed, ref } from 'vue';
 
     /* MEDIA QUERIES */
     @media (min-width: 768px) {
-        #singleStateButton {
+        .singleStateButton {
             gap: 10px;
         }
     }

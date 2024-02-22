@@ -2,6 +2,10 @@
     import SingleStateButton from './SingleStateButton.vue';
 
     const props = defineProps({
+        itemId: {
+            type: Number,
+            required: true
+        },
         name: {
             type: String,
             required: true
@@ -15,6 +19,12 @@
             required: true
         }
     })
+
+    const emit = defineEmits(['deleteItem']);
+
+    const deleteItem = () => {
+        emit('deleteItem');
+    };
 </script>
 
 <template>
@@ -24,7 +34,7 @@
             <span id="item-amount">{{ props.amount }} {{ props.unit }}</span>
         </div>
 
-        <SingleStateButton :image="'icon-delete'" style="max-width: 75px"/>
+        <SingleStateButton :image="'icon-delete'" style="max-width: 75px" @clickButton="deleteItem"/>
     </div>
 </template>
 
