@@ -9,6 +9,10 @@
         amount: {
             type: String,
             required: true
+        },
+        unit: {
+            type: String,
+            required: true
         }
     })
 </script>
@@ -17,7 +21,7 @@
     <div id="recipe-item">
         <div id="item-amount-container">
             <span id="item-name">{{ props.name }}</span>
-            <span id="item-amount">{{ props.amount }}</span>
+            <span id="item-amount">{{ props.amount }} {{ props.unit }}</span>
         </div>
 
         <SingleStateButton :image="'icon-delete'" style="max-width: 75px"/>

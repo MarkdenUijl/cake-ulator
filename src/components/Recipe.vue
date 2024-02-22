@@ -1,6 +1,4 @@
 <script setup>
-    import { ref } from 'vue';
-
     const props = defineProps({
         recipeItems: {
             type: Array,
@@ -11,7 +9,7 @@
 
 <template>
     <div id="recipe-container">
-        <recipe-item v-for="item in recipeItems" :key="item.id" :name="item.name" :amount="item.amount" @click="$emit('deleteItem', item.id)"/>
+        <recipe-item v-for="item in recipeItems" :key="item.id" :name="item.name" :amount="item.amount" :unit="item.unit" @click="$emit('deleteItem', item.id)"/>
     </div>
 </template>
 

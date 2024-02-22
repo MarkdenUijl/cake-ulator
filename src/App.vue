@@ -3,7 +3,6 @@
   import { ref } from 'vue';
 
   const recipeItems = ref([
-    
   ]);
 
   const addItemToRecipe = (item) => {
