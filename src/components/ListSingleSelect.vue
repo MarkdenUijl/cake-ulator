@@ -1,6 +1,4 @@
 <script setup>
-  import { ref } from 'vue'
-
   const props = defineProps({
     buttons: {
       type: Array,
@@ -9,14 +7,26 @@
     selectedButton: {
       type: String,
       default: null
+    },
+    toggle: {
+      type: Boolean,
+      default: false
     }
   })
 
-  const emit = defineEmits(['update:selectedButton'])
+  const emit = defineEmits(['buttonClicked', 'update:selectedButton']);
+
+  const handleButtonToggle = (buttonId) => {
+    if (props.selectedButton === buttonId) {
+      emit('buttonClicked', null);
+    } else {
+      emit('buttonClicked', buttonId);
+    }
+  };
 
   const handleButtonSelect = (buttonId) => {
-      emit('update:selectedButton', buttonId)
-  }
+    emit('update:selectedButton', buttonId);
+  };
 </script>
 
 <template>
@@ -27,7 +37,7 @@
       :image="button.image" 
       :text="button.text" 
       :isSelected="selectedButton === button.id" 
-      @click="handleButtonSelect(button.id)" 
+      @click="toggle ? handleButtonToggle(button.id) : handleButtonSelect(button.id)" 
     />
   </div>
 </template>

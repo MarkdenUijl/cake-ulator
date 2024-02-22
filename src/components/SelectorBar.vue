@@ -4,6 +4,14 @@
     import { convertWeight } from '@/utils/convertWeight.js'
     import { convertTemperature } from '@/utils/convertTemperature.js'
 
+    const toggleConverter = (buttonId) => {
+        if (selectedConverter.value === buttonId) {
+            selectedConverter.value = null;
+        } else {
+            selectedConverter.value = buttonId;
+        }
+    };
+
     function resetValues() {
         selectedConverter.value = null;
         selectedVolumeInput.value = null;
@@ -62,8 +70,7 @@
         if (volumeOutputAmount.value != null && volumeInputAmount.value != 0 && 
             volumeOutputAmount.value != null && volumeOutputAmount.value != 0 &&
             volumeName.value !== '') {
-                console.log(`${volumeInputAmount.value} ${selectedVolumeInput.value} ${volumeName.value}`)
-                console.log(`${volumeOutputAmount.value} ${selectedVolumeOutput.value} ${volumeName.value}`)
+                addItemToRecipe(volumeName.value, `${volumeOutputAmount.value} ${selectedVolumeOutput.value}`)
         }
 
         resetValues();
@@ -82,8 +89,7 @@
         if (weightOutputAmount.value != null && weightInputAmount.value != 0 && 
             weightOutputAmount.value != null && weightOutputAmount.value != 0 &&
             weightName.value !== '') {
-                console.log(`${weightInputAmount.value} ${selectedWeightInput.value} ${weightName.value}`)
-                console.log(`${weightOutputAmount.value} ${selectedWeightOutput.value} ${weightName.value}`)
+                addItemToRecipe(weightName.value, `${ weightOutputAmount.value } ${selectedWeightOutput.value}`)
         }
 
         resetValues();
@@ -99,17 +105,32 @@
 
     const addTemperatureConversion = () => {
         if (temperatureOutputAmount.value != null && temperatureInputAmount.value != 0 && temperatureInputAmount.value != null) {
-            console.log(`${temperatureInputAmount.value} ${selectedTemperatureInput.value}`)
-            console.log(`${temperatureOutputAmount.value} ${selectedTemperatureOutput.value}`)
+            console.log(`Bake at ${temperatureOutputAmount.value}º ${selectedTemperatureOutput.value}`)
         }
 
         resetValues();
     }
+
+    const emit = defineEmits(['addItemToRecipe'])
+
+    const addItemToRecipe = (itemName, itemAmountString) => {
+        const recipeItem = {
+            id: generateId(),
+            name: itemName,
+            amount: itemAmountString
+        }
+
+        emit('addItemToRecipe', recipeItem)
+    }
+
+    const generateId = () => {
+    return Math.floor(Math.random() * 1000);
+  };
 </script>
 
 <template>
     <div id="selector-container">
-        <list-single-select :buttons="conversionButtons" v-model:selectedButton="selectedConverter" />
+        <list-single-select :buttons="conversionButtons" v-model:selectedButton="selectedConverter" :toggle="true" @buttonClicked="toggleConverter" />
     </div>
 
     <div id="outer-container">
@@ -135,7 +156,7 @@
 
             <div class="divider"></div>
 
-            <single-state-button @clickButton="addVolumeConversion" text="+" />
+            <single-state-button @clickButton="addVolumeConversion" :image="'icon-add'" />
         </div>
 
         <div id="conversion-weight" class="conversion-container" :class="{ 'collapsed' : selectedConverter !== 'weight' }">
@@ -154,13 +175,13 @@
             <span id="convert-to-text">{{ weightInputAmount }} {{ selectedWeightInput }} {{ weightName }} is:</span>
             
             <div class="amount-select-container">
-                <span id="output-amount">{{ parseFloat(weightOutputAmount).toFixed(2) }}</span>
+                <span id="output-amount">{{ weightOutputAmount }}</span>
                 <list-single-select :buttons="weightButtons" v-model:selectedButton="selectedWeightOutput" />
             </div>
 
             <div class="divider"></div>
 
-            <single-state-button @clickButton="addWeightConversion" text="+" />
+            <single-state-button @clickButton="addWeightConversion" :image="'icon-add'" />
         </div>
 
         <div id="conversion-temperature" class="conversion-container" :class="{ 'collapsed' : selectedConverter !== 'temperature' }">
@@ -180,10 +201,6 @@
                 <span id="output-amount">{{ parseFloat(temperatureOutputAmount).toFixed(0) }}</span>
                 <list-single-select :buttons="temperatureButtons" v-model:selectedButton="selectedTemperatureOutput" />
             </div>
-
-            <div class="divider"></div>
-
-            <single-state-button @clickButton="addTemperatureConversion" text="+" />
         </div>
     </div>
 </template>
@@ -210,6 +227,7 @@
 
     .conversion-container.collapsed {
         transform: scaleY(0);
+        opacity: 0;
     }
 
     .conversion-container {
@@ -220,13 +238,14 @@
         align-items: flex-start;
         gap: 10px;
         width: 100%;
+        box-shadow: 0px 3px 10px var(--color-background);
 
         background-color: var(--color-item);
         border-radius: 15px;
         padding: 10px;
 
         overflow:hidden;
-        transition:transform 0.5s ease-in-out;
+        transition:transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
         height:auto;
         transform:scaleY(1);
         transform-origin:top;
