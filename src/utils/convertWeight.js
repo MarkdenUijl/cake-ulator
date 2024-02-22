@@ -1,4 +1,5 @@
 import { fractionToMixedNumber } from '@/utils/fractionToMixedNumber.js';
+import { parse } from 'vue/compiler-sfc';
 
 export function convertWeight(selectedWeightInput, selectedWeightOutput, weightInputAmount) {
     if (selectedWeightInput === null || selectedWeightOutput === null || weightInputAmount === null) {
@@ -7,15 +8,15 @@ export function convertWeight(selectedWeightInput, selectedWeightOutput, weightI
 
     if (selectedWeightInput === 'cups') {
         if (selectedWeightOutput === 'g') {
-            return weightInputAmount * 128;
+            return parseFloat(weightInputAmount * 128).toFixed(2);
         } else if (selectedWeightOutput === 'oz') {
-            return weightInputAmount * 4.5;
+            return parseFloat(weightInputAmount * 4.5).toFixed(2);
         } else if (selectedWeightOutput === 'lb') {
-            return weightInputAmount * 0.28;
+            return parseFloat(weightInputAmount * 0.28).toFixed(2);
         } else if (selectedWeightOutput === 'tbsp') {
-            return weightInputAmount * 16;
+            return parseFloat(weightInputAmount * 16).toFixed(2);
         } else if (selectedWeightOutput === 'tsp') {
-            return weightInputAmount * 48;
+            return parseFloat(weightInputAmount * 48).toFixed(2);
         } else {
             return weightInputAmount;
         }
@@ -23,13 +24,13 @@ export function convertWeight(selectedWeightInput, selectedWeightOutput, weightI
         if (selectedWeightOutput === 'cups') {
             return fractionToMixedNumber( weightInputAmount / 128 );
         } else if (selectedWeightOutput === 'oz') {
-            return weightInputAmount / ( 256/9 );
+            return parseFloat(weightInputAmount / ( 256/9 )).toFixed(2);
         } else if (selectedWeightOutput === 'lb') {
-            return weightInputAmount / ( 128 / 0.28 );
+            return parseFloat(weightInputAmount / ( 256/9 ) / ( 128 / 0.28 )).toFixed(2);
         } else if (selectedWeightOutput === 'tbsp') {
-            return weightInputAmount / 8;
+            return parseFloat(weightInputAmount / 8).toFixed(2);
         } else if (selectedWeightOutput === 'tsp') {
-            return weightInputAmount / ( 8/3 );
+            return parseFloat(weightInputAmount / ( 8/3 )).toFixed(2);
         } else {
             return weightInputAmount;
         }
@@ -37,13 +38,13 @@ export function convertWeight(selectedWeightInput, selectedWeightOutput, weightI
         if (selectedWeightOutput === 'cups') {
             return fractionToMixedNumber( weightInputAmount / 4.5 );
         } else if (selectedWeightOutput === 'g') {
-            return weightInputAmount * ( 256/9 );
+            return parseFloat(weightInputAmount * ( 256/9 )).toFixed(2);
         } else if (selectedWeightOutput === 'lb') {
-            return weightInputAmount / ( 4.5 / 0.28 );
+            return parseFloat(weightInputAmount / ( 4.5 / 0.28 )).toFixed(2);
         } else if (selectedWeightOutput === 'tbsp') {
-            return weightInputAmount * ( 16 / 4.5 );
+            return parseFloat(weightInputAmount * ( 16 / 4.5 )).toFixed(2);
         } else if (selectedWeightOutput === 'tsp') {
-            return weightInputAmount * ( 48 / 4.5 );
+            return parseFloat(weightInputAmount * ( 48 / 4.5 )).toFixed(2);
         } else {
             return weightInputAmount;
         }
@@ -51,13 +52,13 @@ export function convertWeight(selectedWeightInput, selectedWeightOutput, weightI
         if (selectedWeightOutput === 'cups') {
             return fractionToMixedNumber( weightInputAmount / 0.28 );
         } else if (selectedWeightOutput === 'g') {
-            return weightInputAmount * ( 128 / 0.28 );
+            return parseFloat(weightInputAmount * ( 128 / 0.28 )).toFixed(2);
         } else if (selectedWeightOutput === 'oz') {
-            return weightInputAmount * ( 4.5 / 0.28 );
+            return parseFloat(weightInputAmount * ( 4.5 / 0.28 )).toFixed(2);
         } else if (selectedWeightOutput === 'tbsp') {
-            return weightInputAmount * ( 16 / 0.28 );
+            return parseFloat(weightInputAmount * ( 16 / 0.28 )).toFixed(2);
         } else if (selectedWeightOutput === 'tsp') {
-            return weightInputAmount * ( 48 / 0.28 );
+            return parseFloat(weightInputAmount * ( 48 / 0.28 )).toFixed(2);
         } else {
             return weightInputAmount;
         }
@@ -65,13 +66,13 @@ export function convertWeight(selectedWeightInput, selectedWeightOutput, weightI
         if (selectedWeightOutput === 'cups') {
             return fractionToMixedNumber( weightInputAmount / 16 );
         } else if (selectedWeightOutput === 'g') {
-            return weightInputAmount * 8;
+            return parseFloat(weightInputAmount * 8).toFixed(2);
         } else if (selectedWeightOutput === 'oz') {
-            return weightInputAmount / ( 16 / 4.5 );
+            return parseFloat(weightInputAmount * ( 16 / 4.5 )).toFixed(2);
         } else if (selectedWeightOutput === 'lb') {
-            return weightInputAmount / ( 16 / 0.28 );
+            return parseFloat(weightInputAmount * ( 16 / 0.28 )).toFixed(2);
         } else if (selectedWeightOutput === 'tsp') {
-            return weightInputAmount * 3;
+            return parseFloat(weightInputAmount * 3).toFixed(2);
         } else {
             return weightInputAmount;
         }
@@ -79,13 +80,13 @@ export function convertWeight(selectedWeightInput, selectedWeightOutput, weightI
         if (selectedWeightOutput === 'cups') {
             return fractionToMixedNumber( weightInputAmount / 48 );
         } else if (selectedWeightOutput === 'g') {
-            return weightInputAmount * ( 8 / 3 );
+            return parseFloat(weightInputAmount * ( 8 / 3 )).toFixed(2);
         } else if (selectedWeightOutput === 'oz') {
-            return weightInputAmount / ( 48 / 4.5 );
+            return parseFloat(weightInputAmount * ( 48 / 4.5 )).toFixed(2);
         } else if (selectedWeightOutput === 'lb') {
-            return weightInputAmount / ( 48 / 0.28 );
+            return parseFloat(weightInputAmount * ( 48 / 0.28 )).toFixed(2);
         } else if (selectedWeightOutput === 'tbsp') {
-            return weightInputAmount / 3;
+            return parseFloat(weightInputAmount / 3).toFixed(2);
         } else {
             return weightInputAmount;
         }

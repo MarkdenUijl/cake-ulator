@@ -70,7 +70,7 @@
         if (volumeOutputAmount.value != null && volumeInputAmount.value != 0 && 
             volumeOutputAmount.value != null && volumeOutputAmount.value != 0 &&
             volumeName.value !== '') {
-                addItemToRecipe(volumeName.value, `${volumeOutputAmount.value} ${selectedVolumeOutput.value}`)
+                addItemToRecipe(volumeName.value, volumeOutputAmount.value, selectedVolumeOutput.value)
         }
 
         resetValues();
@@ -89,7 +89,7 @@
         if (weightOutputAmount.value != null && weightInputAmount.value != 0 && 
             weightOutputAmount.value != null && weightOutputAmount.value != 0 &&
             weightName.value !== '') {
-                addItemToRecipe(weightName.value, `${ weightOutputAmount.value } ${selectedWeightOutput.value}`)
+                addItemToRecipe(weightName.value, weightOutputAmount.value, selectedWeightOutput.value)
         }
 
         resetValues();
@@ -103,29 +103,22 @@
         return convertTemperature(selectedTemperatureInput.value, selectedTemperatureOutput.value, temperatureInputAmount.value)
     })
 
-    const addTemperatureConversion = () => {
-        if (temperatureOutputAmount.value != null && temperatureInputAmount.value != 0 && temperatureInputAmount.value != null) {
-            console.log(`Bake at ${temperatureOutputAmount.value}º ${selectedTemperatureOutput.value}`)
-        }
-
-        resetValues();
-    }
-
     const emit = defineEmits(['addItemToRecipe'])
 
-    const addItemToRecipe = (itemName, itemAmountString) => {
+    const addItemToRecipe = (itemName, itemAmount, itemUnit) => {
         const recipeItem = {
             id: generateId(),
             name: itemName,
-            amount: itemAmountString
+            amount: itemAmount,
+            unit: itemUnit
         }
 
         emit('addItemToRecipe', recipeItem)
     }
 
     const generateId = () => {
-    return Math.floor(Math.random() * 1000);
-  };
+        return Math.floor(Math.random() * 1000);
+    };
 </script>
 
 <template>
