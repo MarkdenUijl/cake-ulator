@@ -7,11 +7,11 @@ export function convertVolume(selectedVolumeInput, selectedVolumeOutput, volumeI
     
     if (selectedVolumeInput === 'cups') {
         if (selectedVolumeOutput === 'tsp') {
-            return volumeInputAmount * 48;
+            return parseFloat((volumeInputAmount * 48).toFixed(2));
         } else if (selectedVolumeOutput === 'tbsp') {
             return fractionToMixedNumber(volumeInputAmount * 16);
         } else if (selectedVolumeOutput === 'ml') {
-            return volumeInputAmount * 240;
+            return parseFloat((volumeInputAmount * 240).toFixed(2));
         } else {
             return volumeInputAmount;
         }
@@ -19,9 +19,9 @@ export function convertVolume(selectedVolumeInput, selectedVolumeOutput, volumeI
         if (selectedVolumeOutput === 'cups') {
             return fractionToMixedNumber(volumeInputAmount / 16);
         } else if (selectedVolumeOutput === 'tsp') {
-            return volumeInputAmount * 3;
+            return parseFloat((volumeInputAmount * 3).toFixed(2));
         } else if (selectedVolumeOutput === 'ml') {
-            return volumeInputAmount * 15;
+            return parseFloat((volumeInputAmount * 15).toFixed(2));
         } else {
             return volumeInputAmount;
         }
@@ -31,7 +31,7 @@ export function convertVolume(selectedVolumeInput, selectedVolumeOutput, volumeI
         } else if (selectedVolumeOutput === 'tbsp') {
             return fractionToMixedNumber(volumeInputAmount / 3);
         } else if (selectedVolumeOutput === 'ml') {
-            return volumeInputAmount * 5;
+            return parseFloat((volumeInputAmount * 5).toFixed(2));
         } else {
             return volumeInputAmount;
         }
@@ -41,7 +41,7 @@ export function convertVolume(selectedVolumeInput, selectedVolumeOutput, volumeI
         } else if (selectedVolumeOutput === 'tbsp') {
             return fractionToMixedNumber(volumeInputAmount / 15);
         } else if (selectedVolumeOutput === 'tsp') {
-            return volumeInputAmount / 5;
+            return parseFloat((volumeInputAmount / 5).toFixed(2));
         } else {
             return volumeInputAmount;
         }

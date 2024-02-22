@@ -1,6 +1,5 @@
 <script setup>
     import SingleStateButton from './SingleStateButton.vue';
-    import { defineProps, defineEmits } from 'vue';
 
     const props = defineProps({
         name: {
@@ -12,8 +11,6 @@
             required: true
         }
     })
-
-    const emit = defineEmits(['deleteItem']);
 </script>
 
 <template>
@@ -23,7 +20,7 @@
             <span id="item-amount">{{ props.amount }}</span>
         </div>
 
-        <SingleStateButton :image="'icon-delete'" style="max-width: 75px" @click="deleteItem"/>
+        <SingleStateButton :image="'icon-delete'" style="max-width: 75px"/>
     </div>
 </template>
 

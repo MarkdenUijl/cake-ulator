@@ -70,8 +70,7 @@
         if (volumeOutputAmount.value != null && volumeInputAmount.value != 0 && 
             volumeOutputAmount.value != null && volumeOutputAmount.value != 0 &&
             volumeName.value !== '') {
-                console.log(`${volumeInputAmount.value} ${selectedVolumeInput.value} ${volumeName.value}`)
-                console.log(`${volumeOutputAmount.value} ${selectedVolumeOutput.value} ${volumeName.value}`)
+                addItemToRecipe(volumeName.value, `${volumeOutputAmount.value} ${selectedVolumeOutput.value}`)
         }
 
         resetValues();
@@ -90,8 +89,7 @@
         if (weightOutputAmount.value != null && weightInputAmount.value != 0 && 
             weightOutputAmount.value != null && weightOutputAmount.value != 0 &&
             weightName.value !== '') {
-                console.log(`${weightInputAmount.value} ${selectedWeightInput.value} ${weightName.value}`)
-                console.log(`${weightOutputAmount.value} ${selectedWeightOutput.value} ${weightName.value}`)
+                addItemToRecipe(weightName.value, `${ weightOutputAmount.value } ${selectedWeightOutput.value}`)
         }
 
         resetValues();
@@ -112,6 +110,22 @@
 
         resetValues();
     }
+
+    const emit = defineEmits(['addItemToRecipe'])
+
+    const addItemToRecipe = (itemName, itemAmountString) => {
+        const recipeItem = {
+            id: generateId(),
+            name: itemName,
+            amount: itemAmountString
+        }
+
+        emit('addItemToRecipe', recipeItem)
+    }
+
+    const generateId = () => {
+    return Math.floor(Math.random() * 1000);
+  };
 </script>
 
 <template>
@@ -161,7 +175,7 @@
             <span id="convert-to-text">{{ weightInputAmount }} {{ selectedWeightInput }} {{ weightName }} is:</span>
             
             <div class="amount-select-container">
-                <span id="output-amount">{{ parseFloat(weightOutputAmount).toFixed(2) }}</span>
+                <span id="output-amount">{{ weightOutputAmount }}</span>
                 <list-single-select :buttons="weightButtons" v-model:selectedButton="selectedWeightOutput" />
             </div>
 
@@ -187,10 +201,6 @@
                 <span id="output-amount">{{ parseFloat(temperatureOutputAmount).toFixed(0) }}</span>
                 <list-single-select :buttons="temperatureButtons" v-model:selectedButton="selectedTemperatureOutput" />
             </div>
-
-            <div class="divider"></div>
-
-            <single-state-button @clickButton="addTemperatureConversion" :image="'icon-add'" />
         </div>
     </div>
 </template>
