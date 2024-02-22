@@ -3,16 +3,6 @@
   import { ref } from 'vue';
 
   const recipeItems = ref([
-    { id: 1, name: 'Flour', amount: '2 1/2', unit: 'cups' },
-    { id: 2, name: 'Sugar', amount: '1 1/2', unit: 'cups' },
-    { id: 3, name: 'Butter', amount: '1', unit: 'cup' },
-    { id: 4, name: 'Eggs', amount: '4', unit: '' },
-    { id: 5, name: 'Baking Powder', amount: '1', unit: 'tbsp' },
-    { id: 6, name: 'Vanilla', amount: '1', unit: 'tsp' },
-    { id: 7, name: 'Milk', amount: '1', unit: 'cup' },
-    { id: 8, name: 'Salt', amount: '1/2', unit: 'tsp' },
-    { id: 9, name: 'Cocoa', amount: '1/2', unit: 'cup' },
-    { id: 10, name: 'Chocolate Chips', amount: '1', unit: 'cup' },
   ]);
 
   const addItemToRecipe = (item) => {
@@ -31,6 +21,7 @@
 
   function halveString(input) {
     if (input.includes('/')) {
+        // If input contains '/', it's a fraction
         const parts = input.split(' ');
         let integerPart = 0;
         let fractionPart = 0;
