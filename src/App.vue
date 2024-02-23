@@ -1,6 +1,7 @@
 <script setup>
   import "./assets/main.css"
   import { ref } from 'vue';
+  import { fractionToMixedNumber } from "./utils/fractionToMixedNumber";
 
   const recipeItems = ref([
   ]);
@@ -21,36 +22,33 @@
 
   function halveString(input) {
     if (input.includes('/')) {
-        // If input contains '/', it's a fraction
-        const parts = input.split(' ');
-        let integerPart = 0;
-        let fractionPart = 0;
+      const parts = input.split(' ');
+      let integerPart = 0;
+      let fraction = [];
 
-        if (parts.length === 2) {
-            integerPart = parseInt(parts[0]);
-            const fractionParts = parts[1].split('/');
-            fractionPart = parseInt(fractionParts[0]) / parseInt(fractionParts[1]);
-        } else {
-            fractionPart = parseFloat(input);
-        }
+      if (parts.length === 2) {
+          integerPart = parseInt(parts[0]);
+          fraction = parts[1].split('/');
+      } else {
+          fraction = parts[0].split('/');
+      }
 
-        const mixedFraction = integerPart + fractionPart;
+      let numerator = parseInt(fraction[0]);
+      let denominator = parseInt(fraction[1]);
 
-        const halved = mixedFraction / 2;
+      numerator += integerPart * denominator;
 
-        let numerator = halved * 1000000;
-        let denominator = 1000000;
-        let gcd = function gcd(a, b) {
-            return b ? gcd(b, a % b) : a;
-        };
-        gcd = gcd(numerator, denominator);
-        numerator /= gcd;
-        denominator /= gcd;
+      if (numerator % 2 === 0) {
+          numerator /= 2;
+      } else {
+          denominator *= 2;
+      }
 
-        return `${numerator}/${denominator}`;
+      return fractionToMixedNumber( numerator/denominator );
     } else {
         const number = parseFloat(input);
         const halved = number / 2;
+
         return halved.toString();
     }
   }

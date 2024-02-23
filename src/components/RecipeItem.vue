@@ -23,7 +23,7 @@
     const emit = defineEmits(['deleteItem']);
 
     const deleteItem = () => {
-        emit('deleteItem');
+        emit('deleteItem', props.itemId);
     };
 </script>
 
