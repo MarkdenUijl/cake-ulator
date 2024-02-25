@@ -1,10 +1,12 @@
 <script setup>
+    import { halveStringNumber } from '@/utils/halveStringNumber.js';
+
     const props = defineProps({
         recipeItems: {
             type: Array,
             required: true
         }
-    })
+    });
 </script>
 
 <template>
@@ -26,5 +28,6 @@
         flex-shrink: 1;
         overflow-y: scroll;
         padding: 10px;
+        padding-bottom: 40px;
     }
 </style>
