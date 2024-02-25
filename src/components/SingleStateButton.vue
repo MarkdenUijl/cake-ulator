@@ -31,9 +31,10 @@ import { computed, ref } from 'vue';
         <icon v-if="props.image != null" 
             :name="props.image" 
             width="30" 
-            height="30" 
+            height="30"
             :fill="props.isSelected ? 'var(--color-highlight)' : 'var(--color-unselected)'"
         />
+        <span v-if="props.text != null">{{ props.text }}</span>
     </button>
 </template>
 
